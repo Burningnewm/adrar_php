@@ -1,3 +1,7 @@
+<?php 
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,22 +17,58 @@
 <?php 
     include 'bdd.php';
 ?>
-<form class="mt-7 containerConnexion">
+<?php 
+if(isset($_POST['username'], $_POST['password'], $_POST['passwordConfirm'], $_POST['email'])){
+  if ($_POST['password'] == $_POST['passwordConfirm']){
+  $username = stripslashes($_POST['username']);
+  $email = stripslashes($_POST['email']);
+  $password = stripslashes($_POST['password']);
+  $password = password_hash($password, PASSWORD_DEFAULT);
+  $addUser = "INSERT INTO utilisateurs (pseudo_user, pwd_user, mail_user) VALUES (:pseudouser, :pwduser, :mailuser)";
+  $req = $db->prepare($addUser);
+  $result = $req->execute([
+    ":pseudouser"=>$username,
+    ":mailuser"=>$email,
+    ":pwduser"=>$password
+  ]);
+  $_SESSION['username']=$username;
+      header("Location: index.php");
+}
+else{
+  ?>
+        <div class="alert alert-warning" role="alert">
+        Vos mots de passe de correspondent pas!!!
+        </div>
+        <?php 
+}
+}
+else{
+  ?>
+        <div class="alert alert-danger" role="alert">
+        Tous les champs doivent etre remplis!!!
+        </div>
+        <?php 
+}
+
+?>
+<form method="POST"   class="mt-7 containerConnexion">
   <div class=" mb-3">
-    <label for="exampleInputEmail1">Pseudo</label>
-    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Entrez" required>
+    <label for="username">Pseudo</label>
+    <input type="text" class="form-control" id="username" aria-describedby="emailHelp" placeholder="Entrez" name="username" required>
   </div>
   <div class=" mb-3">
-    <label for="exampleInputPassword1">Password</label>
-    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" required>
+    <label for="password">Password</label>
+    <input type="password" class="form-control" id="password" name="password" placeholder="Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+ required>
   </div>
   <div class=" mb-3">
-    <label for="exampleInputPassword1">Confirmez votre Password</label>
-    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" required>
+    <label for="passwordConfirm">Confirmez votre Password</label>
+    <input type="password" class="form-control" id="passwordConfirm" name="passwordConfirm" placeholder="Password Confirmation" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+ required>
   </div>
   <div class=" mb-3">
-    <label for="exampleInputEmail1">Email</label>
-    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Entrez" required>
+    <label for="email">Email</label>
+    <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp" placeholder="Entrez" required>
   </div>
   <button type="submit" class="btn btn-primary mb-3">Submit</button><br>
 </form>

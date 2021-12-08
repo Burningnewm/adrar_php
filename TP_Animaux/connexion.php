@@ -1,3 +1,7 @@
+<?php 
+ session_start()
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,14 +17,49 @@
 <?php 
     include 'bdd.php';
 ?>
-<form class="mt-7 containerConnexion">
+<?php
+  if(isset($_POST['username'], $_POST['password'])){
+    $username = stripslashes($_POST['username']);
+    $password = stripslashes($_POST['password']);
+    $password2 = password_hash($password, PASSWORD_DEFAULT);
+    $sql = "SELECT * FROM utilisateurs WHERE pseudo_user = :username";
+    $req= $db->prepare($sql);
+    $result = $req->execute([
+      ":username"=>$username,
+    ]);
+    var_dump($result);
+    $data = $req->fetchAll(PDO::FETCH_OBJ);
+    var_dump($data['pwd_user']);
+  
+    // if($result2){
+    //   $_SESSION['username']=$username;
+    //   header("Location: index.php");
+    // }
+    // elseif($result){
+      // 
+        // <!-- <div class="alert alert-warning" role="alert">
+        // Password incorrecte!!!
+        // </div>-->
+          
+    // }
+    // else{
+      
+        // <div class="alert alert-warning" role="alert">
+        // Utilisateur inexistant!!!
+        // </div>
+      }
+      ?>    
+    
+  
+
+<form method="POST" class="mt-7 containerConnexion">
   <div class=" mb-3">
-    <label for="exampleInputEmail1">Pseudo</label>
-    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Entrez " required>
+    <label for="username">Pseudo</label>
+    <input type="text" class="form-control" id="username" aria-describedby="emailHelp" placeholder="Entrez votre pseudo" name="username" required>
   </div>
   <div class=" mb-3">
-    <label for="exampleInputPassword1">Password</label>
-    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" required>
+    <label for="password">Password</label>
+    <input type="password" class="form-control" id="password" placeholder="Password" name="password" required>
   </div>
   <div class=" mb-3">
     <input type="checkbox" class="form-check-input" id="exampleCheck1">
