@@ -1,0 +1,32 @@
+#animaux{
+    border: 2px solid black;
+}
+#animaux h2{
+    font-size: 1.5rem;
+    text-align: center;
+    font-weight: bold;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+#animaux p{
+    color: grey;
+    padding-bottom: 10px;
+    text-align: center;
+    
+}
+#animaux img{
+    width:200px;
+    height: 200px;
+}
+.containerAnimaux{
+    margin-top: 5vh;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+}
+.containerConnexion{
+    padding-top: 10vh;
+    width: 30% !important;
+    margin-left: 35% !important;
+}
