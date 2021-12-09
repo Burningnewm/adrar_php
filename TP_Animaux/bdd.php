@@ -1,6 +1,6 @@
 <?php 
 try{
-    $db = new PDO("mysql:host=localhost;dbname=animaux_php;charset=utf8", "root", "root");
+    $db = new PDO("mysql:host=localhost;dbname=animal;charset=utf8", "root", "");
 }catch(Exception $e){
     die($e->getMessage());
 }

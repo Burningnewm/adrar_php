@@ -1,6 +1,6 @@
 <?php 
 session_start();
-if(isset($_SESSION['username'])){
+if(isset($_SESSION['username']) || isset($_COOKIE['username'])){
 ?>
 
 <!DOCTYPE html>
@@ -29,6 +29,7 @@ if(isset($_SESSION['username'])){
     if(isset($_POST['animauxDataList'])){
         foreach($data as $animal){
             if($_POST['animauxDataList'] == $animal->animal_nom){
+                $image = $animal->animal_image;
                 $succes = true;
             }
         }
@@ -37,6 +38,7 @@ if(isset($_SESSION['username'])){
         $sql3 = "DELETE FROM animal WHERE animal_nom =:animal";
         $request = $db->prepare($sql3);
         $result= $request->execute([":animal"=>$_POST['animauxDataList']]);
+        unlink('assets/'.$image);
         if($succes == true){
         ?>
         <div class="alert alert-success" role="alert">

@@ -1,20 +1,20 @@
-#animaux{
+.animaux{
     border: 2px solid black;
 }
-#animaux h2{
+.animaux h2{
     font-size: 1.5rem;
     text-align: center;
     font-weight: bold;
     padding-top: 10px;
     padding-bottom: 10px;
 }
-#animaux p{
+.animaux p{
     color: grey;
     padding-bottom: 10px;
     text-align: center;
     
 }
-#animaux img{
+.animaux img{
     width:200px;
     height: 200px;
 }
@@ -29,4 +29,12 @@
     padding-top: 10vh;
     width: 30% !important;
     margin-left: 35% !important;
+}
+.cross{
+    text-align: right !important;
+    font-size: 2rem;
+    color: black;
+}
+.cross:hover{
+    cursor: pointer;
 }

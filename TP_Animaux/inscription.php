@@ -20,11 +20,21 @@ session_start();
 <?php 
 if(isset($_POST['username'], $_POST['password'], $_POST['passwordConfirm'], $_POST['email'])){
   if ($_POST['password'] == $_POST['passwordConfirm']){
-  $username = stripslashes($_POST['username']);
-  $email = stripslashes($_POST['email']);
-  $password = stripslashes($_POST['password']);
+    $username1 = $_POST['username'];
+    $mail = $_POST['email'];
+    $sql = "SELECT * FROM utilisateurs WHERE user_pseudo = :username OR user_mail = :mailuser";
+    $req= $db->prepare($sql);
+    $result = $req->execute([
+      ":username"=>$username1,
+      ":mailuser"=>$mail
+    ]);
+    $data = $req->fetch(PDO::FETCH_OBJ);
+    if(empty($data)){
+  $username = $_POST['username'];
+  $email = $_POST['email'];
+  $password = $_POST['password'];
   $password = password_hash($password, PASSWORD_DEFAULT);
-  $addUser = "INSERT INTO utilisateurs (pseudo_user, pwd_user, mail_user) VALUES (:pseudouser, :pwduser, :mailuser)";
+  $addUser = "INSERT INTO utilisateurs (user_pseudo, user_pwd, user_mail) VALUES (:pseudouser, :pwduser, :mailuser)";
   $req = $db->prepare($addUser);
   $result = $req->execute([
     ":pseudouser"=>$username,
@@ -37,19 +47,26 @@ if(isset($_POST['username'], $_POST['password'], $_POST['passwordConfirm'], $_PO
 else{
   ?>
         <div class="alert alert-warning" role="alert">
+        Utilisateur éxistant!!!
+        </div>
+        <?php 
+}
+  }
+else{
+  ?>
+        <div class="alert alert-warning" role="alert">
         Vos mots de passe de correspondent pas!!!
         </div>
         <?php 
 }
 }
-else{
+elseif(!isset($_POST['username'], $_POST['password'], $_POST['passwordConfirm'], $_POST['email']) && isset($_POST['submit'])){
   ?>
         <div class="alert alert-danger" role="alert">
         Tous les champs doivent etre remplis!!!
         </div>
         <?php 
 }
-
 ?>
 <form method="POST"   class="mt-7 containerConnexion">
   <div class=" mb-3">
@@ -70,7 +87,7 @@ else{
     <label for="email">Email</label>
     <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp" placeholder="Entrez" required>
   </div>
-  <button type="submit" class="btn btn-primary mb-3">Submit</button><br>
+  <button type="submit" class="btn btn-primary mb-3" name="submit">Submit</button><br>
 </form>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>

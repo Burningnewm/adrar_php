@@ -1,5 +1,5 @@
 <?php 
- session_start()
+session_start()
 ?>
 
 <!DOCTYPE html>
@@ -19,35 +19,41 @@
 ?>
 <?php
   if(isset($_POST['username'], $_POST['password'])){
-    $username = stripslashes($_POST['username']);
-    $password = stripslashes($_POST['password']);
-    $password2 = password_hash($password, PASSWORD_DEFAULT);
-    $sql = "SELECT * FROM utilisateurs WHERE pseudo_user = :username";
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+    $sql = "SELECT * FROM utilisateurs WHERE user_pseudo = :username";
     $req= $db->prepare($sql);
     $result = $req->execute([
       ":username"=>$username,
     ]);
-    var_dump($result);
-    $data = $req->fetchAll(PDO::FETCH_OBJ);
-    var_dump($data['pwd_user']);
+    $data = $req->fetch(PDO::FETCH_OBJ);
   
-    // if($result2){
-    //   $_SESSION['username']=$username;
-    //   header("Location: index.php");
-    // }
-    // elseif($result){
-      // 
-        // <!-- <div class="alert alert-warning" role="alert">
-        // Password incorrecte!!!
-        // </div>-->
-          
-    // }
-    // else{
-      
-        // <div class="alert alert-warning" role="alert">
-        // Utilisateur inexistant!!!
-        // </div>
+    if($data){
+      if(password_verify($password, $data->user_pwd)){
+      $_SESSION['username']=$username;
+      $name = 'username';
+      header("Location: index.php");
+      if($_POST['checkbox']){
+        setcookie($name, $username, time() + (3600 * 24 * 7), null, null, true, true);
+      } 
       }
+      else{
+        ?>
+          <div class="alert alert-warning" role="alert">
+          Password incorrecte!!!
+          </div>
+          <?php   
+        }
+    }
+    else{
+      ?>
+      <div class="alert alert-warning" role="alert">
+        Utilisateur inexistant!!!
+      </div>
+      <?php    
+    }
+    
+    }
       ?>    
     
   
@@ -62,8 +68,8 @@
     <input type="password" class="form-control" id="password" placeholder="Password" name="password" required>
   </div>
   <div class=" mb-3">
-    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-    <label class="form-check-label" for="exampleCheck1">rester connecté</label>
+    <input type="checkbox" class="form-check-input" id="checkbox" name="checkbox">
+    <label class="form-check-label" for="checkbox">rester connecté</label>
   </div>
   <button type="submit" class="btn btn-primary mb-3">Submit</button><br>
   <a href="inscription.php">Pas encore inscris? Inscivez-vous</a>

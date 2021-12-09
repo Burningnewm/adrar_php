@@ -1,6 +1,6 @@
 <?php 
 session_start();
-if(isset($_SESSION['username'])){
+if(isset($_SESSION['username']) || isset($_COOKIE['username'])){
 ?>
 
 <!DOCTYPE html>
@@ -22,18 +22,13 @@ if(isset($_SESSION['username'])){
     ?>
     <section class="containerAnimaux">
     <?php
-    // if(isset($_GET['value']))
-    // $sql2 = "DELETE FROM animal WHERE animal_nom = :animal";
-    // $req2 = $db->prepare($sql2);
-    // $result = $req2->execute([
-    //     ":animal"=>$_GET['value']
-    //     ]);
     $sql = "SELECT * FROM animal";
     $req = $db->query($sql);
     $data = $req->fetchAll(PDO::FETCH_OBJ);
     foreach ($data as $animal) {
     ?>
-        <ul id="animaux">
+        <ul class="animaux" id="<?=$animal->animal_nom?>">
+            <p class="cross" id="<?=$animal->animal_nom?>">x</p>
             <li>
                 <h2><?= htmlspecialchars($animal->animal_nom)  ?></h2>
             </li>
@@ -48,6 +43,7 @@ if(isset($_SESSION['username'])){
     };
     ?>
     </section>
+    <script src="main.js" type="text/javascript"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
 
