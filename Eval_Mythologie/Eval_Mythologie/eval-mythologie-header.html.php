@@ -14,9 +14,6 @@
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="index.php">Accueil</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="tp-animaux-view-add.html.php">Article</a>
-          </li>
           <?php 
           if (!isset($_SESSION['id'])){
           ?>

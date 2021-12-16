@@ -20,11 +20,11 @@ $data = allArticles($db);
     ?>
     <div class="card" style="width: 18rem; height:18rem;">
         <div class="card-body">
-        <h5 class="card-title"><?= $value->title_article ?></h5>
-        <p class="card-text"><?= $value->desc_article ?>.</p>
+        <h5 class="card-title"><?=htmlspecialchars($value->title_article);  ?></h5>
+        <p class="card-text"><?=htmlspecialchars($value->desc_article);  ?>.</p>
         </div>
         <div class="card-footer">
-            <a href="" class="btn btn-primary">Consulter l'article</a>
+            <a href="eval-mythologie-view-article.html.php?title=<?=$value->title_article?>" class="btn btn-primary">Consulter l'article</a>
         </div>
         </div>
     <?php 

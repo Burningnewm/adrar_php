@@ -1,5 +1,10 @@
 <?php 
 session_start();
+include_once "bddMythologie/bddManager.php"; 
+include_once "bddMythologie/eval-mythologie-bdd.php";
+if (!empty($_GET['error'])) {
+    $error = explode("-", $_GET['error']);
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -52,6 +57,9 @@ session_start();
                         else if ($error == "specialC") {
                             echo " Caractères spéciaux interdit sur le titre de l'article.";
                         }
+                        else if ($error == "length"){
+                            echo "Le contenus de l'article est trop court, minimum 100 caractères.";
+                        }
                     }
                     echo "</p>";
                     ?>
@@ -60,7 +68,7 @@ session_start();
             } else if (!empty($_GET['add'])) {
             ?>
                 <div class="alert alert-success" role="alert">
-                    <p>Animal ajouté avec succès</p>
+                    <p>Article ajouté avec succès</p>
                 </div>
             <?php
             }

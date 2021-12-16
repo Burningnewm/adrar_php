@@ -24,6 +24,9 @@ if (!empty($data)) {
         if ($info['extension'] != "jpg" && $info['extension'] != "png") {
             $error .= "-format";
         }
+        if(strlen($_POST['contenus_article']) < 100 ){
+            $error .= "-length";
+        }
         if ($error == null) {
             move_uploaded_file($_FILES['article_img']['tmp_name'], "images/" . $_FILES['article_img']['name']);
         }
