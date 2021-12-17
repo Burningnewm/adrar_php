@@ -13,12 +13,12 @@ function selectUser($user, $db)
     
 }
 
-function selectArticle($article, $db)
+function selectArticle($idarticle, $db)
 {
-    $sql = "SELECT * from articles WHERE title_article = :titlearticle";
+    $sql = "SELECT * from articles WHERE id_article = :idarticle";
     $req =  $db->prepare($sql);
     $result = $req->execute([
-        ":titlearticle" => $article
+        ":idarticle" => $idarticle
     ]);
     $data = $req->fetchAll(PDO::FETCH_OBJ);
     return $data;
@@ -38,11 +38,11 @@ function allArticles($db)
     return $data;
 }
 
-function deleteArticle($article,$db){
-    $sql = "DELETE FROM articles WHERE  title_article = :title";
+function deleteArticle($idarticle,$db){
+    $sql = "DELETE FROM articles WHERE  id_article = :idarticle";
     $req =  $db->prepare($sql);
     $result = $req->execute([
-        ":title"=>$article
+        ":idarticle"=>$idarticle
     ]);
     return $result;
 }
@@ -68,4 +68,13 @@ function addUser($pseudo,$password,$role,$db){
         "role" => $role
     ]);
     return $result;
+}
+function addArticleAuthor($idarticle, $db){
+    $sql = "select utilisateurs.user_pseudo FROM utilisateurs INNER JOIN articles on utilisateurs.user_id = articles.user_id WHERE id_article = :idarticle";
+    $req =  $db->prepare($sql);
+    $result = $req->execute([
+        ":idarticle" => $idarticle
+    ]);
+    $data = $req->fetch(PDO::FETCH_OBJ);
+    return $data;
 }

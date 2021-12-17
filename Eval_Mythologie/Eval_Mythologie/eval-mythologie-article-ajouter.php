@@ -27,14 +27,18 @@ if (!empty($data)) {
         if(strlen($_POST['contenus_article']) < 100 ){
             $error .= "-length";
         }
+        if(strlen($_POST['desc_article']) > 250){
+            $error .= "-desc";
+        }
         if ($error == null) {
             move_uploaded_file($_FILES['article_img']['tmp_name'], "images/" . $_FILES['article_img']['name']);
+            $result = addArticle($_POST['title_article'],$_POST['contenus_article'],$_FILES['article_img']['name'], $_POST['desc_article'], $_SESSION['id'], $db);
         }
-        $result = addArticle($_POST['title_article'],$_POST['contenus_article'],$_FILES['article_img']['name'], $_POST['desc_article'], $_SESSION['id'], $db);
-    }
-    if (!$result) {
-        header("Location: eval-mythologie-view-article-ajouter.html.php?error=" . $error);
-    } else {
+        else{
+            header("Location: eval-mythologie-view-article-ajouter.html.php?error=" . $error);
+        }   
+    } 
+    if($result) {
         header("Location: eval-mythologie-view-article-ajouter.html.php?add=success");
     }
 }

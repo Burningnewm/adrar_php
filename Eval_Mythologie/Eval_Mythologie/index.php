@@ -18,13 +18,13 @@ $data = allArticles($db);
     <div class="containerArticles">
     <?php foreach ($data as $value) {
     ?>
-    <div class="card" style="width: 18rem; height:18rem;">
+    <div class="card" style="width: 18rem;">
         <div class="card-body">
         <h5 class="card-title"><?=htmlspecialchars($value->title_article);  ?></h5>
         <p class="card-text"><?=htmlspecialchars($value->desc_article);  ?>.</p>
         </div>
         <div class="card-footer">
-            <a href="eval-mythologie-view-article.html.php?title=<?=$value->title_article?>" class="btn btn-primary">Consulter l'article</a>
+            <a href="eval-mythologie-view-article.html.php?id=<?=$value->id_article?>" class="btn btn-primary">Consulter l'article</a>
         </div>
         </div>
     <?php 

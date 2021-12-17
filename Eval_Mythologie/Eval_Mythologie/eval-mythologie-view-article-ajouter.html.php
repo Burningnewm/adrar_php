@@ -60,6 +60,9 @@ if (!empty($_GET['error'])) {
                         else if ($error == "length"){
                             echo "Le contenus de l'article est trop court, minimum 100 caractères.";
                         }
+                        else if ($error == "desc"){
+                            echo "Le contenus de la description est trop longue, maximum 250 caractères.";
+                        }
                     }
                     echo "</p>";
                     ?>

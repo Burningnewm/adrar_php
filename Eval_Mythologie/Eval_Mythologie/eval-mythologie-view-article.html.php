@@ -2,8 +2,9 @@
 session_start();
 include_once "bddMythologie/bddManager.php"; 
 include_once "bddMythologie/eval-mythologie-bdd.php";
-$article = $_GET['title'];
+$article = $_GET['id'];
 $data = selectArticle($article, $db);
+$author = addArticleAuthor($article, $db);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -18,12 +19,43 @@ $data = selectArticle($article, $db);
 <body>
 <?php include_once "eval-mythologie-header.html.php";?>
 
-<div class="card mb-3">
+<div class="card mb-3 center">
     <img class="card-img-top" src="images/<?= $data[0]->img_article?>" alt="<?=htmlspecialchars($data[0]->title_article) ?>" style="width: 400px; height: 600px;">
     <div class="card-body">
         <h5 class="card-title"><?=htmlspecialchars($data[0]->title_article);  ?></h5>
         <p class="card-text"><?=htmlspecialchars($data[0]->contenus_article) ?></p>
+        <p class="card-text"><small class="text-muted">Auteur : <?=$author->user_pseudo?></small></p>
         <p class="card-text"><small class="text-muted">Date de publication: <?=$data[0]->date_article?></small></p>
+        <?php 
+            if (isset($_SESSION['role']) && $_SESSION['role'] == 1){
+        ?>
+            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalSupprimer">
+            Supprimer l'article
+            </button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="modalSupprimer" tabindex="-1" role="dialog" data-bs-backdrop="static" data-bs-keyboard="false"aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Suppression de l'article</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Voulez-vous vraiment supprimer l'article concernant <?=htmlspecialchars($data[0]->title_article);  ?> ?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                    <a href="eval-mythologie-delete-article.php?id=<?= $article ?>" type="button" class="btn btn-primary">Supprimer</a>
+                </div>
+                </div>
+            </div>
+            </div>
+        <?php 
+        
+        }?>
     </div>
 </div>
 

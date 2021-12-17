@@ -11,3 +11,7 @@
     justify-content: center !important;
     gap: 2rem !important;
 }
+.center{
+    width: 60%;
+    margin: 2rem auto;
+}
