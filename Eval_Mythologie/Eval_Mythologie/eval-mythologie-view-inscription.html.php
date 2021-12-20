@@ -16,7 +16,7 @@ if (isset($_GET['error'])) {
 </head>
 <body>
 <?php 
-    include_once "eval-mythologie-header.html.php"; 
+    include_once "eval-mythologie-view-header.html.php"; 
 ?>
 <form method="POST" action="eval-mythologie-inscription.php"  class="mt-7 containerConnexion">
   <div class=" mb-3">
@@ -27,6 +27,7 @@ if (isset($_GET['error'])) {
     <label for="password">Password</label>
     <input type="password" class="form-control" id="password" name="password" placeholder="Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
  required>
+ <small>Au moins 8 caractères, une majuscule, une minuscule et un chiffre</small>
   </div>
   <div class=" mb-3">
     <label for="passwordConfirm">Confirmez votre Password</label>
@@ -39,7 +40,7 @@ if (isset($_GET['error'])) {
             <?php
             }
             ?>
-  <button type="submit" class="btn btn-primary mb-3" name="submit">Submit</button><br>
+  <button type="submit" class="btn btn-dark mb-3" name="submit">Submit</button><br>
   <?php
         if (!empty($error) && $error == "allField") {
         ?> <small class="text-danger">Vous n'avez pas rentré tout les champs</small>

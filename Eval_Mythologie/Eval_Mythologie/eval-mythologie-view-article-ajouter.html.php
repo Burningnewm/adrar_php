@@ -18,7 +18,7 @@ if (!empty($_GET['error'])) {
 </head>
 <body>
 <?php 
-    include_once "eval-mythologie-header.html.php"; 
+    include_once "eval-mythologie-view-header.html.php"; 
 ?>
  <form method="POST" action="eval-mythologie-article-ajouter.php" enctype="multipart/form-data" class="mt-7 containerConnexion">
             <div class="form-group mb-3">
@@ -38,7 +38,7 @@ if (!empty($_GET['error'])) {
                 <input type="file" class="form-control" placeholder="Image de l'article" required name="article_img">
             </div>
 
-            <button type="submit" class="btn btn-primary">Créer l'article</button>
+            <button type="submit" class="btn btn-dark">Créer l'article</button>
             <?php if (!empty($error)) {
 
             ?>

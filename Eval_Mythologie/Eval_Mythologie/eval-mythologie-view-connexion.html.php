@@ -16,7 +16,7 @@ if (isset($_GET['error'])) {
 </head>
 <body>
 <?php 
-    include_once "eval-mythologie-header.html.php"; 
+    include_once "eval-mythologie-view-header.html.php"; 
 ?>
 <form method="POST" action="eval-mythologie-connexion.php" class="mt-7 containerConnexion">
     <div class=" mb-3">
@@ -50,8 +50,8 @@ if (isset($_GET['error'])) {
         <input type="checkbox" class="form-check-input" id="checkbox" name="checkbox">
         <label class="form-check-label" for="checkbox">rester connecté</label>
     </div>
-    <button type="submit" class="btn btn-primary mb-3">Submit</button><br>
-    <a href="eval-mythologie-view-inscription.html.php">Pas encore inscris? Inscivez-vous</a>
+    <button type="submit" class="btn btn-dark mb-3">Submit</button><br>
+    <a href="eval-mythologie-view-inscription.html.php" style="color:black;">Pas encore inscris? Inscivez-vous</a>
 </form>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>

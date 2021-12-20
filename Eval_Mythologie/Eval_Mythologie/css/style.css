@@ -10,6 +10,8 @@
     flex-wrap: wrap !important;
     justify-content: center !important;
     gap: 2rem !important;
+    background-image: url('./images/backgroundMythologie.jpg');
+    padding-bottom: 3rem;
 }
 .center{
     width: 60%;

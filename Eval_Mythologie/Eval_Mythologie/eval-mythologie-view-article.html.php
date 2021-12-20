@@ -17,10 +17,10 @@ $author = addArticleAuthor($article, $db);
     <title>Eval Mythologie</title>
 </head>
 <body>
-<?php include_once "eval-mythologie-header.html.php";?>
+<?php include_once "eval-mythologie-view-header.html.php";?>
 
 <div class="card mb-3 center">
-    <img class="card-img-top" src="images/<?= $data[0]->img_article?>" alt="<?=htmlspecialchars($data[0]->title_article) ?>" style="width: 400px; height: 600px;">
+    <img class="card-img-top center sm-w-100"  src="images/<?= $data[0]->img_article?>" alt="<?=htmlspecialchars($data[0]->title_article) ?>" style="max-width: 400px; min-width:200px; max-height: 500px; min-height:250px">
     <div class="card-body">
         <h5 class="card-title"><?=htmlspecialchars($data[0]->title_article);  ?></h5>
         <p class="card-text"><?=htmlspecialchars($data[0]->contenus_article) ?></p>
@@ -48,7 +48,7 @@ $author = addArticleAuthor($article, $db);
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                    <a href="eval-mythologie-delete-article.php?id=<?= $article ?>" type="button" class="btn btn-primary">Supprimer</a>
+                    <a href="eval-mythologie-delete-article.php?id=<?= $article ?>" type="button" class="btn btn-danger">Supprimer</a>
                 </div>
                 </div>
             </div>
